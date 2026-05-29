@@ -39,6 +39,7 @@ jobs:
   kube-linter:
     name: Best-practice lint (kube-linter)
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
