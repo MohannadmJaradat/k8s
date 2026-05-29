@@ -1,0 +1,49 @@
+name: Validate manifests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'practice/**/*.yaml'
+      - 'practice/**/*.yml'
+      - '.github/workflows/validate.yml'
+  pull_request:
+    paths:
+      - 'practice/**/*.yaml'
+      - 'practice/**/*.yml'
+      - '.github/workflows/validate.yml'
+
+jobs:
+  kubeconform:
+    name: Schema validation (kubeconform)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install kubeconform
+        run: |
+          curl -sSLo kubeconform.tar.gz \
+            https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz
+          tar -xzf kubeconform.tar.gz
+          sudo mv kubeconform /usr/local/bin/
+
+      - name: Run kubeconform
+        run: |
+          kubeconform \
+            -strict \
+            -ignore-missing-schemas \
+            -summary \
+            -output pretty \
+            practice/
+
+  kube-linter:
+    name: Best-practice lint (kube-linter)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run kube-linter
+        uses: stackrox/kube-linter-action@v1
+        with:
+          directory: practice/
+          format: plain
