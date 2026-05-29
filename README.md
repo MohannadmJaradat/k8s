@@ -4,12 +4,10 @@ Personal Kubernetes learning repo — manifests and notes from KodeKloud courses
 
 ## Structure
 
-- `pods/` — Pod manifests
-- `replicasets/` — ReplicaSet manifests
-- `deployments/` — Deployment manifests
-- `service/` — Service manifests
-- `voting-app/` — Multi-tier voting app (pods + deployments)
-- `*.pdf` — KodeKloud course notes (K8s Beginners, CKA, AWS EKS)
+- `material/` — KodeKloud course notes (K8s Beginners, CKA, AWS EKS)
+- `practice/` — Hands-on manifests
+  - `pods/`, `replicasets/`, `deployments/`, `service/` — core resource examples
+  - `voting-app/` — multi-tier voting app (pods + deployments)
 
 ## Usage
 
